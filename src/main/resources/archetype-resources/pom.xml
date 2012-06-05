@@ -80,6 +80,16 @@
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+						<artifactId>android-maven-plugin</artifactId>
+						<inherited>true</inherited>
+						<configuration>
+							<sign>
+								<debug>true</debug>
+							</sign>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jarsigner-plugin</artifactId>
 						<version>1.2</version>
@@ -92,29 +102,22 @@
 								<phase>package</phase>
 								<inherited>true</inherited>
 								<configuration>
-									<archiveDirectory></archiveDirectory>
 									<processMainArtifact>true</processMainArtifact>
-									<processAttachedArtifacts>true</processAttachedArtifacts>
+									<processAttachedArtifacts>false</processAttachedArtifacts>
+									<archiveDirectory>${project.build.directory}</archiveDirectory>
 									<includes>
 										<include>target/*.apk</include>
 									</includes>
+									<removeExistingSignatures>true</removeExistingSignatures>
 									<keystore>${keyFilePath}</keystore>
 									<storepass>${storePassword}</storepass>
 									<keypass>${keyPassword}</keypass>
 									<alias>${keyAlias}</alias>
+									<certs>true</certs>
+									<verbose>true</verbose>
 								</configuration>
 							</execution>
 						</executions>
-					</plugin>
-					<plugin>
-						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-						<artifactId>android-maven-plugin</artifactId>
-						<inherited>true</inherited>
-						<configuration>
-							<sign>
-								<debug>false</debug>
-							</sign>
-						</configuration>
 					</plugin>
 				</plugins>
 			</build>
