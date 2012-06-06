@@ -17,6 +17,8 @@
 		<storePassword></storePassword>
 		<keyPassword></keyPassword>
 		<keyAlias></keyAlias>
+		<final.name></final.name>
+		<zipaligin.filename>${final.name}</zipaligin.filename>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -49,8 +51,34 @@
 							<platform>${android.sdk.platform}</platform>
 						</sdk>
 						<deleteConflictingFiles>true</deleteConflictingFiles>
+						<proguard>
+							<skip>false</skip>
+							<config>proguard.cfg</config>
+							<filterMavenDescriptor>true</filterMavenDescriptor>
+							<filterManifest>true</filterManifest>
+							<jvmArguments>
+								<jvmArgument>-Xms256m</jvmArgument>
+								<jvmArgument>-Xmx512m</jvmArgument>
+							</jvmArguments>
+						</proguard>
 					</configuration>
 					<extensions>true</extensions>
+					<executions>
+						<execution>
+							<id>alignApk</id>
+							<phase>package</phase>
+							<goals>
+								<goal>zipalign</goal>
+							</goals>
+							<configuration>
+								<zipalign>
+									<verbose>true</verbose>
+									<inputApk>${project.build.directory}/${project.build.finalName}.apk</inputApk>
+									<outputApk>${project.build.directory}/${zipaligin.filename}</outputApk>
+								</zipalign>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
