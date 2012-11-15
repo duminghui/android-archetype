@@ -44,7 +44,7 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.4.0</version>
 					<configuration>
 						<sdk>
 							<path>${android.sdk.path}</path>
@@ -61,6 +61,9 @@
 								<jvmArgument>-Xmx512m</jvmArgument>
 							</jvmArguments>
 						</proguard>
+						<zipalign>
+							<skip>false</skip>
+						</zipalign>
 					</configuration>
 					<extensions>true</extensions>
 					<executions>
